@@ -68,6 +68,7 @@
             
             
             <h2>Gallery ¡<%out.print(category);%>!</h2>
+            <div id="gallery">
         <ul>
         <%
             List imageUrlList = new ArrayList();  
@@ -109,14 +110,9 @@
     <li id="parts"><a href="index.jsp?part=<%=c%>"><%=c%></a></li>
     <%}%>
     </ul>
-            
-    <div id="gallery">
-        
-         </div><%}else{%>
-             
-                     
-                 <div id="gallery">
+</div><%}else{%>          
                      <h2>Gallery</h2>
+                     <div id="gallery">
                       <%@page import="java.io.*" %> 
         <%@page import="java.util.*" %> <%!        
         public void GetDirectory(String a_Path, Vector a_files, Vector a_folders) {
@@ -162,6 +158,8 @@
     </li>
 <%
     }}%>
+    </ul>
+    <ul>
     <% rss = stm.executeQuery("SELECT count(*) FROM t_imgs");
        rss.next();
        int rows = rss.getInt(1);

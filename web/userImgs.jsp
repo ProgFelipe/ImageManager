@@ -15,6 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style type="text/css"><%@ include file="Styles/styles.css"%></style>
         <style type="text/css"><%@ include file="Styles/mobile.css"%></style>
+        <style type="text/css"><%@ include file="Styles/imgMng.css"%></style>
                 <style type="text/css">
             table{
                 float:left;
@@ -98,6 +99,15 @@ for(File imageCat : imageCategory.listFiles()){
 <%
     }}%></table><% 
 }}%>
+<!--User shared with me images location -->
+<div id="shared">
+    <h3>User image date</h3>
+    <ul>
+        <li>Shared with me</li>
+        <li>Shared with me</li>
+        <li>Shared with me</li>
+    </ul>
+</div>
     <div id="clientBox">
             <% if(currentUser != null){%>
     <form id="logOut" action="LogOut">
