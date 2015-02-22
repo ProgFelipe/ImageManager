@@ -52,7 +52,7 @@ uplform{
 
 
 	<form id="uplform" method="post" action="UploadServlet" enctype="multipart/form-data">
-            <span> Select file to upload:</span><input type="file" name="file" size="60" /> <span>( Max size 16 mb)</span> <br />
+            <span> Select file to upload:</span><input type="file" name="file" /> <span>( Max size 16 mb)</span> <br />
             <!---<span>File name: </span><input type="text" name="fileName"/><br/>-->
             <span>Choose Category: </span><select name="category" id="categories">
                 <option value="photo" selected>Photo</option>

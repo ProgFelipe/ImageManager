@@ -31,6 +31,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+/*
+*Reference :
+*http://stackoverflow.com/questions/2422468/how-to-upload-files-to-server-using-jsp-servlet
+*/
 @WebServlet("/UploadServlet")
 //@MultipartConfig(maxFileSize = 16177215)// upload file's size up to 16MB
 @MultipartConfig(fileSizeThreshold=1024*1024*2,	// 2MB 
@@ -54,7 +58,8 @@ public class UploadServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {              
                 String description = request.getParameter("category"); // Retrieves <input type="text" name="description">
                 Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
-                String fileName = filePart.getName();
+                String fileName = extractFileName(filePart);
+                System.err.println("Nombre Upload "+fileName);
                 InputStream fileContent = filePart.getInputStream();
             
                 String category = request.getParameter("category");
@@ -96,7 +101,7 @@ public class UploadServlet extends HttpServlet {
                 System.err.println(appPath);
                 
             request.setAttribute("message", "Upload has been done successfully!</br>"
-                    + "<a href='servlet1?filename="+fileName+"'>See your latest upload image</a></br>"
+                    + "<a href='servlet1?filename="+fileName+"&&category="+category+"'>See your latest upload image</a></br>"
                     + "<a href='index.jsp'>Back To HOME</a>");
             getServletContext().getRequestDispatcher("/uploader.jsp").forward(
             		request, response);
