@@ -76,10 +76,15 @@ public class UploadServlet extends HttpServlet {
                 //Before String savePath = "e:\\temp\\"+userId;
 		//String savePath = appPath+"/imgs/"+userId;
                 StorageManager stm = new StorageManager();
-                String savePath = stm.getStoragePath()+userId+"/"+category;
+                String savePath = stm.getStoragePath()+userId;
 		// creates the save directory if it does not exists
 		File fileSaveDir = new File(savePath);
 		if (!fileSaveDir.exists()) {
+			fileSaveDir.mkdir();
+		}
+                savePath = stm.getStoragePath()+userId+"/"+category;
+                fileSaveDir = new File(savePath);
+                if (!fileSaveDir.exists()) {
 			fileSaveDir.mkdir();
 		}
                 filePart.write(savePath + File.separator + fileName);
