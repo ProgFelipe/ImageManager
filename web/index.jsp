@@ -91,7 +91,7 @@
         <p>Upload: <%out.print(date);%></p>
         <%if(currentUser != null){ %>
         <a class="option" target="_blank" href="servlet1?filename=<%=file%>&&userid=<%=userId%>&&category=<%=categories%>">Download photo</a>
-        <a class="option" href="shareImg.jsp?filename=<%=file%>&&category=<%=category%>">Share photo</a>
+        <a class="option" href="shareImg.jsp?filename=<%=file%>&&category=<%=categories%>">Share photo</a>
         <%}%>
     </li>
 <%
@@ -153,7 +153,7 @@
         <p>Upload: <%out.print(date);%></p>
         <%if(currentUser != null){ %>
         <a class="option" target="_blank" href="servlet1?filename=<%=file%>&&category=<%=categories%>&&userid=<%=userId%>">Download photo</a>
-        <a class="option" href="shareImg.jsp?filename=<%=file%>&&category=<%=category%>">Share photo</a>
+        <a class="option" href="shareImg.jsp?filename=<%=file%>&&category=<%=categories%>">Share photo</a>
         <%}%>   
     </li>
 <%
