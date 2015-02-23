@@ -94,11 +94,12 @@ for(File imageCat : imageCategory.listFiles()){
         <td><img style="width:200px; height: 200px;" src="servlet1?filename=<%=imageFileName%>&&category=<%=category%>"></td>
         <td><a href="servlet1?filename=<%=imageFileName%>&&category=<%=category%>">click for photo</a></td>
         <td><a href="deleteImg?filename=<%=imageFileName%>&&category=<%=category%>">Delete photo</a></td>
-        <td><a href="shareImg?filename=<%=imageFileName%>&&category=<%=category%>">Share photo</a></td>
+        <td><a href="shareImg.jsp?filename=<%=imageFileName%>&&category=<%=category%>">Share photo</a></td>
     </tr>
 <%
     }}%></table><% 
 }}%>
+<h2 style="color: red;">${requestScope.message}</h2><br/>
 <!--User shared with me images location -->
 <div id="shared">
     <h3>User image date</h3>
