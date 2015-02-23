@@ -4,6 +4,10 @@
     Author     : Felipe
 --%>
 
+<%@page import="java.sql.ResultSet"%>
+<%@page import="Servlet.ConnectionManager"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="DAO.UserDAO"%>
 <%@page import="Servlet.StorageManager"%>
 <%@page import="Bean.UserBean"%>
@@ -103,11 +107,38 @@ for(File imageCat : imageCategory.listFiles()){
 <!--User shared with me images location -->
 <div id="shared">
     <h3>User image date</h3>
-    <ul>
-        <li>Shared with me</li>
-        <li>Shared with me</li>
-        <li>Shared with me</li>
-    </ul>
+    <table>
+        <tr>
+            <td>Thumbnail</td>
+            <td>Sender</td>   
+            <td>Date</td>
+            <td>Full size</td>
+        </tr>
+        <%
+                Connection con = ConnectionManager.getConnection();
+                Statement stm = con.createStatement();
+               UserDAO daoUser = new UserDAO();
+               String user = currentUser.getUsername();
+               String userId = daoUser.getUserId(user);
+                ResultSet rss = stm.executeQuery("SELECT * FROM t_share where receiver = "+userId+" ORDER BY date");
+                while(rss.next()){
+                    String from = rss.getString(2).toString().trim();
+                    String imageFileName = rss.getString(4).toString().trim();
+                    String category = rss.getString(5).toString().trim();
+                    String date = rss.getString(6).toString().trim();
+                    String fromName = daoUser.getUserName(from);
+        %>
+        <tr>
+            <td><img style="width:200px; height: 200px;" src="servlet1?filename=<%=imageFileName%>&&category=<%=category%>"></td>
+            <td><%=fromName%></td>
+            <td><%=date%></td>
+            <td><a href="servlet1?filename=<%=imageFileName%>&&category=<%=category%>">Open image</a></td>
+        </tr>
+        <%}
+        rss.close();
+        con.close();
+        %>
+    </table>
 </div>
     <div id="clientBox">
             <% if(currentUser != null){%>

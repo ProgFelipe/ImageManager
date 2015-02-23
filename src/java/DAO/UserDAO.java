@@ -165,7 +165,7 @@ return bean;
                     else if (more) 
                     {
                         userid = rs.getString("id_usuario");
-                        System.err.println("Usuauriaiuiisaiduiausi "+userid);
+                        System.err.println("user id  "+userid);
                     }
             } catch (SQLException ex) {
                 Logger.getLogger(UploadServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -180,5 +180,39 @@ return bean;
             }
             }
         return userid;
+        }
+        public String getUserName(String id){
+            //connect to DB 
+            currentCon = ConnectionManager.getConnection();           
+            String searchQuery = "select * from t_users where id_usuario='" + id + "'";
+            String user = "";
+            try {
+                Statement stmt1 =currentCon.createStatement();
+                rs = stmt1.executeQuery(searchQuery);
+                boolean more = rs.next();
+                // if user does not exist set the isValid variable to false
+                    if (!more) 
+                    {
+                       System.out.println("Sorry, you are not a registered user! Please sign up first");
+                    } 
+                    //if user exists set the isValid variable to true
+                    else if (more) 
+                    {
+                        user = rs.getString("user");
+                        System.err.println("user name "+user);
+                    }
+            } catch (SQLException ex) {
+                Logger.getLogger(UploadServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }finally {
+            if (currentCon != null) {
+                // closes the database connection
+                try {
+                    currentCon.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            }
+            return user;
         }
    }
