@@ -105,12 +105,14 @@ body{
     border-width: 1px;
     width: 200px;
     float:right;
-    /*margin-top: 25%;
-    margin-right: 20px;
-    z-index: 99;
-    position: fixed;*/
-    display: inline-block;
+    position: fixed;
+    left: 76%;
+    width: 22%;
+    top: 106px;
+    background-color: #ffffff;
+    overflow: auto;
     padding-left: 8px;
+    text-align: center;
 }
 #gallery{
     width: 79%;

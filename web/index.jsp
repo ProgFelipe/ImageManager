@@ -185,8 +185,8 @@
     <%}else{%>
     <p>Login</p>
         <form action="LoginAuth">
-            UserID: <input type="text" name="userId" value=""/><br/>
-            Password: <input type="password" name="password" value=""/><br/>
+            <span>UserID:</span><br/> <input type="text" name="userId" value=""/><br/>
+            <span>Password:</span><br/> <input type="password" name="password" value=""/><br/>
             <input type="submit" value="Login">
         </form>
     <%}%>
