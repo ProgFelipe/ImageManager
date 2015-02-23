@@ -36,9 +36,11 @@
   String category = request.getParameter("category");
 %>
     <div id="shareBox">
-        <h2>Search the user(s) you want to share the <%=file%></h2>
+        <h2>Search the user(s) you want to share <%=file%> on <%=category%></h2>
         <form action="share" method="post" >
             <input type="text" id="demo-input" name="shareWith" />
+            <input type="hidden" name="imgName" value="<%=file%>">
+            <input type="hidden" name="category" value="<%=category%>">
             <input id="shareButton" type="submit" value="Share" />
             <script type="text/javascript">
             $(document).ready(function() {

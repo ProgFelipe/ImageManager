@@ -24,7 +24,7 @@ public class ImageDAO {
     static Connection currentCon = null;
     static ResultSet rs = null;  
     //preparing some objects for connection 
-    Statement stmt = null;   
+    static Statement stmt = null;   
     
     public byte[] getImage(int id){
         Blob image = null;
@@ -119,5 +119,22 @@ public class ImageDAO {
          System.out.println("Delete fail: An Exception has occurred! " + ex);
       } 
           return deleted;
+     }
+     
+     public static boolean shareImg(String from, String to, String fileName, String category){
+         Boolean shared = false;
+         try{
+            String shareQuery = "insert into t_share(sender, receiver, img_name, category ) values ('"+from+"','"+to+"','"+fileName+"','"+category+"')";
+             System.err.println(shareQuery);
+            currentCon = ConnectionManager.getConnection();
+            stmt=currentCon.createStatement();
+            stmt.executeUpdate(shareQuery);
+            shared = true;
+            currentCon.close();
+            stmt.close();
+         }catch(Exception e){
+         System.out.println("Shared fail: An Exception has occurred! " + e);
+         }
+         return shared;
      }
 }
