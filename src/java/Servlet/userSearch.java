@@ -25,18 +25,18 @@ public class userSearch extends HttpServlet{
         try{
            Connection con = ConnectionManager.getConnection();
            Statement st=con.createStatement();
+           
+           ResultSet rss = st.executeQuery("select count(*) from t_users where user like '"+name+"%'");
+           rss.next();
+           int rows = rss.getInt(1);
            ResultSet rs = st.executeQuery("select * from t_users where user like '"+name+"%'");
            
            String users = "[";
            int count = 1;
-           int rows = 0;
+            System.err.println("Numero col "+rows);
            while(rs.next())
             {
-            if(count == 1){
-            rows = rs.getInt(1);
-            System.err.println("Numero col "+rows);
-            }
-            users=users+"{\"id\": \""+count+"\", \"name\": \""+rs.getString("user")+"\"}";
+            users=users+"{\"id\": \""+rs.getString("id_usuario")+"\", \"name\": \""+rs.getString("user")+"\"}";
             if(count < rows){
                 users+=",";
             }
@@ -45,6 +45,10 @@ public class userSearch extends HttpServlet{
            users += "]";
            System.err.println("Users "+users);
            response.getWriter().println(users);
+           rss.close();
+           rs.close();
+           st.close();
+           con.close();
         }
          catch (Exception e) {
             e.printStackTrace();

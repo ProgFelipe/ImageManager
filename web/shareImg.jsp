@@ -34,21 +34,19 @@
 </ul>-->
 <%String file = request.getParameter("filename");
   String category = request.getParameter("category");
-  UserBean currentUser = (UserBean) (session.getAttribute("currentSessionUser"));
-  String user = currentUser.getUsername();
 %>
     <div id="shareBox">
         <h2>Search the user(s) you want to share the <%=file%></h2>
-        <form action="shareImg" >
-        <input type="text" id="demo-input" name="shareWith" />
-        <input id="shareButton" type="submit" value="Share" />
-        <script type="text/javascript">
-        $(document).ready(function() {
-            $("#demo-input").tokenInput("userSearch");
-        });
-        </script>
+        <form action="share" method="post" >
+            <input type="text" id="demo-input" name="shareWith" />
+            <input id="shareButton" type="submit" value="Share" />
+            <script type="text/javascript">
+            $(document).ready(function() {
+                $("#demo-input").tokenInput("userSearch", {preventDuplicates: true});
+            });
+            </script>
         </form>
     </div>
-        <h2 style="color: red;">${requestScope.message}</h2><br/>
+        <h2 style="color: red; margin: 0 auto; text-align: center;">${requestScope.message}</h2><br/>
     </body>
 </html>
