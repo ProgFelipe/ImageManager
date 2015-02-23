@@ -41,7 +41,7 @@ public class share extends HttpServlet{
                     send = ImageDAO.shareImg(userId, users[c], imgName, imgCategory);
                 }
                 if(send){
-                request.setAttribute("message", "Shared Successfully with "+sharedUsers+" ; "+imgName+", "+imgCategory);
+                request.setAttribute("message", "Shared Successfully with "+sharedUsers+" ; "+imgName+", "+imgCategory+"</br><a href='index.jsp'>Home</a>");
                 }else{
                 request.setAttribute("message", "There was an error");
                 }

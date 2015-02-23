@@ -22,7 +22,7 @@
 	
       <body>
          <center>
-            Sorry, you are not a registered user! Please sign up first
+             <h1>Sorry, you are not a registered user! Please <a href="registro.jsp">sign up first</a></h1>
          </center>
       </body>
 	

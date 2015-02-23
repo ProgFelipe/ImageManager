@@ -88,6 +88,7 @@
             UserDAO daoUser = new UserDAO();
             String userId = daoUser.getUserId(user);
             File imageCategory = new File(storagepath.getStoragePath()+userId);  
+            if(imageCategory.isDirectory()){
 for(File imageCat : imageCategory.listFiles()){
         File imageDir = new File(storagepath.getStoragePath()+userId+"/"+imageCat.getName());  
         String category = imageCat.getName();
@@ -101,8 +102,8 @@ for(File imageCat : imageCategory.listFiles()){
         <td><a href="shareImg.jsp?filename=<%=imageFileName%>&&category=<%=category%>">Share photo</a></td>
     </tr>
 <%
-    }}%></table><% 
-}}%>
+    }}}%></table><% 
+}%>
 <h2 style="color: red;">${requestScope.message}</h2><br/>
 <!--User shared with me images location -->
 <div id="shared">
@@ -118,7 +119,6 @@ for(File imageCat : imageCategory.listFiles()){
                 Connection con = ConnectionManager.getConnection();
                 Statement stm = con.createStatement();
                UserDAO daoUser = new UserDAO();
-               String user = currentUser.getUsername();
                String userId = daoUser.getUserId(user);
                 ResultSet rss = stm.executeQuery("SELECT * FROM t_share where receiver = "+userId+" ORDER BY date");
                 while(rss.next()){
@@ -129,14 +129,15 @@ for(File imageCat : imageCategory.listFiles()){
                     String fromName = daoUser.getUserName(from);
         %>
         <tr>
-            <td><img style="width:200px; height: 200px;" src="servlet1?filename=<%=imageFileName%>&&category=<%=category%>"></td>
+            <td><img style="width:200px; height: 200px;" src="servlet1?filename=<%=imageFileName%>&&category=<%=category%>&&userid=<%=from%>"></td>
             <td><%=fromName%></td>
             <td><%=date%></td>
-            <td><a href="servlet1?filename=<%=imageFileName%>&&category=<%=category%>">Open image</a></td>
+            <td><a href="servlet1?filename=<%=imageFileName%>&&category=<%=category%>&&userid=<%=from%>">Open image</a></td>
         </tr>
         <%}
         rss.close();
         con.close();
+        }
         %>
     </table>
 </div>
