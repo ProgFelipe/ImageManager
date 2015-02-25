@@ -133,6 +133,7 @@ for(File imageCat : imageCategory.listFiles()){
             <td><%=fromName%></td>
             <td><%=date%></td>
             <td><a href="servlet1?filename=<%=imageFileName%>&&category=<%=category%>&&userid=<%=from%>">Open image</a></td>
+            <td><a href="deleteImg?filename=<%=imageFileName%>&&category=<%=category%>&&sharedMe=<%=1%>">Delete photo</a></td>
         </tr>
         <%}
         rss.close();

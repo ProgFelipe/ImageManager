@@ -121,6 +121,29 @@ public class ImageDAO {
           return deleted;
      }
      
+     public static boolean deleteSharedWithMe(ImgBean bean){
+         Statement stmt = null;    
+         boolean deleted = false;
+         String userid = bean.getUserId();    
+         String category = bean.getCategory();   
+         String filename = bean.getFileName();
+         //delete from t_imgs where userid = 1 and category = 'null' and fileName = 'P1010844.JPG'
+         String registerQuery = "delete from t_share where receiver = "+userid+" and category = '"+category+"' and img_name = '"+filename+"'";
+         System.out.println("delete from t_share where receiver = '"+userid+"' and category = '"+category+"' and img_name = '"+filename+"'");
+         try {
+         currentCon = ConnectionManager.getConnection();
+         stmt=currentCon.createStatement();
+         stmt.executeUpdate(registerQuery);
+         deleted = true;
+         currentCon.close();
+         stmt.close();
+      }catch (Exception ex) 
+      {
+         System.out.println("Delete fail: An Exception has occurred! " + ex);
+      } 
+          return deleted;
+     }
+     
      public static boolean shareImg(String from, String to, String fileName, String category){
          Boolean shared = false;
          try{
