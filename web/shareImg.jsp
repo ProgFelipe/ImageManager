@@ -12,7 +12,24 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="javascript/jquery.tokeninput.js"></script>
-
+    <style type="text/css">
+        #Devs{
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    float: left;
+    display: inline-block;
+    margin-top: 20px;
+    text-align: center;
+    color: #ffffff;
+    background-color: #2F3036;
+    bottom: 0;
+    left: 0;
+    }
+    #Devs a{
+        color: #ffffff;
+    }
+    </style>
     <link rel="stylesheet" href="Styles/token-input.css" type="text/css" />
     <link rel="stylesheet" href="Styles/token-input-facebook.css" type="text/css" />
     <style type="text/css"><%@ include file="Styles/share.css"%></style>
@@ -50,5 +67,11 @@
         </form>
     </div>
         <h2 style="color: red; margin: 0 auto; text-align: center;">${requestScope.message}</h2><br/>
+                <div id="Devs">
+            <span>Developers:</span> <a  href="https://plus.google.com/113546192742040163511/posts" target="_blank">Felipe Gutiérrez</a><span> and</span>
+            <a  href="https://plus.google.com/100113038660504044024" target="_blank">Carolina Yepes</a>
+            </br>
+            <h3>Universidad EAFI - Tópicos en telemática</h3>
+        </div>
     </body>
 </html>

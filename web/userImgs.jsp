@@ -107,6 +107,7 @@ for(File imageCat : imageCategory.listFiles()){
 <h2 style="color: red;">${requestScope.message}</h2><br/>
 <!--User shared with me images location -->
 <div id="shared">
+    <h2>¡Shared with me!</h2>
     <h3>User image date</h3>
     <table>
         <tr>
@@ -158,5 +159,11 @@ for(File imageCat : imageCategory.listFiles()){
         <p><a href="registro.jsp">Register</a></p>
         <p><a href="uploader.jsp">Upload File</a></p>
     </div>
+                <div id="Devs">
+            <span>Developers:</span> <a  href="https://plus.google.com/113546192742040163511/posts" target="_blank">Felipe Gutiérrez</a><span> and</span>
+            <a  href="https://plus.google.com/100113038660504044024" target="_blank">Carolina Yepes</a>
+            </br>
+            <h3>Universidad EAFI - Tópicos en telemática</h3>
+        </div>
     </body>
 </html>
