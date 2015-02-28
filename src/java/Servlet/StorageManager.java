@@ -11,8 +11,8 @@ package Servlet;
  */
 public class StorageManager {
  //request.getContextPath()
-    private static String storagePath = "e:\\temp\\";
-    
+    private static String storagePath = "/home/fgutier7/Pictures/";
+    //private static String storagePath = "e:\\temp\\";
     public void setStoragePath(String path){
         this.storagePath = path;
     }

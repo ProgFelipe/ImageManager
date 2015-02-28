@@ -21,14 +21,16 @@ public class ConnectionManager {
       {
          try
          {
-            String url = "jdbc:mysql://localhost/" + "imgdb"; 
-            // assuming "DataSource" is your DataSource name
+            //String url = "jdbc:mysql://localhost/" + "imgdb"; 
+            String url = "jdbc:mysql://localhost/" + "fgutier7"; 
+            // assuming "imgdb" is your DataSource name
             Class.forName("com.mysql.jdbc.Driver");
             try
             {            	
-               con = DriverManager.getConnection(url,"root",""); 				
-            // assuming your SQL Server's	username is "root"               
-            // and password is ""
+               //con = DriverManager.getConnection(url,"root",""); 				
+                con = DriverManager.getConnection(url,"fgutier7","fgutier7"); 				
+            // assuming your SQL Server's	username is "fgutier7"               
+            // and password is "fgutier7"
             }catch (SQLException ex)
             {
                ex.printStackTrace();

@@ -16,6 +16,7 @@ import Bean.UserBean;
 import DAO.ImageDAO;
 import DAO.UserDAO;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -37,7 +38,7 @@ import javax.servlet.http.Part;
 */
 @WebServlet("/UploadServlet")
 //@MultipartConfig(maxFileSize = 16177215)// upload file's size up to 16MB
-@MultipartConfig(fileSizeThreshold=1024*1024*2,	// 2MB 
+@MultipartConfig(location="/",fileSizeThreshold=1024*1024*2,	// 2MB 
 				 maxFileSize=1024*1024*10,		// 10MB
 				 maxRequestSize=1024*1024*50)	// 50MB
 public class UploadServlet extends HttpServlet {
@@ -49,7 +50,6 @@ public class UploadServlet extends HttpServlet {
 	 * Name of the directory where uploaded files will be saved, relative to
 	 * the web application directory.
 	 */
-	private static final String UPLOAD_DIR = "uploads";
 	static String fileName = null;
 	/**
 	 * handles file upload
@@ -70,24 +70,39 @@ public class UploadServlet extends HttpServlet {
                                 //Get user id
 		UserDAO daoUser = new UserDAO();
                 String userId = daoUser.getUserId(user);
-                
 		// constructs path of the directory to save uploaded file
 		//String savePath = appPath + File.separator + SAVE_DIR;
                 //Before String savePath = "e:\\temp\\"+userId;
 		//String savePath = appPath+"/imgs/"+userId;
+                  // gets absolute path of the web application
+                //String appPath = System.getProperty("user.dir");
+                
                 StorageManager stm = new StorageManager();
                 String savePath = stm.getStoragePath()+userId;
 		// creates the save directory if it does not exists
 		File fileSaveDir = new File(savePath);
+                
 		if (!fileSaveDir.exists()) {
 			fileSaveDir.mkdir();
 		}
-                savePath = stm.getStoragePath()+userId+"/"+category;
+                savePath +=  "/"+category;
+                
                 fileSaveDir = new File(savePath);
                 if (!fileSaveDir.exists()) {
 			fileSaveDir.mkdir();
 		}
-                filePart.write(savePath + File.separator + fileName);
+                
+                    InputStream is = filePart.getInputStream(); 
+                    int i = is.available(); 
+                    byte[] b  = new byte[i]; 
+                    is.read(b); 
+                    fileName = extractFileName(filePart); 
+                    FileOutputStream os = new FileOutputStream(savePath+"/"+ fileName); 
+                    os.write(b); 
+                    is.close(); 
+                
+                
+                //filePart.write("E:\\temp\\1\\abstract\\"+ fileName);
 		/*
 		for (Part part : request.getParts()) {
                         fileName = extractFileName(part);
@@ -101,9 +116,6 @@ public class UploadServlet extends HttpServlet {
                 
                 ImageDAO.uploadDataImg(img);
   
-                // gets absolute path of the web application
-		String appPath = request.getServletContext().getRealPath("");
-                System.err.println(appPath);
                 
             request.setAttribute("message", "Upload has been done successfully!</br>"
                     + "<a href='servlet1?filename="+fileName+"&&category="+category+"'>See your latest upload image</a></br>"
