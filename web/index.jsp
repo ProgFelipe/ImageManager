@@ -60,7 +60,9 @@
 	</nav>
         <br/>
 
-        <a style="color: red;" href="images.jsp">All User Images</a>
+        <!--
+        User keys and images
+        <a style="color: red;" href="images.jsp">All User Images</a>-->
         <% String category = request.getParameter("category");
             if(category != null ){
                 
@@ -75,7 +77,16 @@
             //Get userS ids
             Connection con = ConnectionManager.getConnection();
             Statement stm = con.createStatement();
-            ResultSet rss = stm.executeQuery("SELECT * FROM t_imgs where category = '"+category+"' ORDER BY date DESC LIMIT 10");
+            ResultSet rss;
+            String part = request.getParameter("part");
+            if(part != null){
+                //Start on row part
+                int ipart = Integer.parseInt(part)*10;
+                //Next 10 rows
+                int next = ipart+10;
+                rss = stm.executeQuery("SELECT * FROM t_imgs where category = '"+category+"' ORDER BY date DESC LIMIT "+ipart+","+next+"");
+            }else{
+                rss = stm.executeQuery("SELECT * FROM t_imgs where category = '"+category+"' ORDER BY date DESC LIMIT 10");}
     while(rss.next()){
             String userId = rss.getString(2).toString().trim();
             String file = rss.getString(3).toString().trim();
@@ -98,16 +109,16 @@
     }}%>
             </ul>   
             <ul>
-                <% rss = stm.executeQuery("SELECT count(*) FROM t_imgs");
+                <% rss = stm.executeQuery("SELECT count(*) FROM t_imgs where category = '"+category+"'");
        rss.next();
        int rows = rss.getInt(1);
-       int parts = (Integer)rows/10;
+       int parts = Math.round(rows/10);
        stm.close();
        rss.close();
        con.close();
        for(int c = 0; c <= parts; c++){
     %>
-    <li id="parts"><a href="index.jsp?part=<%=c%>"><%=c%></a></li>
+    <li id="parts"><a href="index.jsp?part=<%=c%>&&category=<%=category%>"><%=c%></a></li>
     <%}%>
     </ul>
 </div><%}else{%>          
@@ -138,7 +149,17 @@
             //Get userS ids
             Connection con = ConnectionManager.getConnection();
             Statement stm = con.createStatement();
-            ResultSet rss = stm.executeQuery("SELECT * FROM t_imgs ORDER BY date DESC LIMIT 10");
+            String part = request.getParameter("part");
+            ResultSet rss;
+            if(part != null){
+                //Start on row part
+                int ipart = Integer.parseInt(part)*10;
+                //Next 10 rows
+                int next = ipart+10;
+                rss = stm.executeQuery("SELECT * FROM t_imgs ORDER BY date DESC LIMIT "+ipart+","+next+"");
+            }else{
+                rss = stm.executeQuery("SELECT * FROM t_imgs ORDER BY date DESC LIMIT 10");
+            }
     while(rss.next()){
             String userId = rss.getString(2).toString().trim();
             String file = rss.getString(3).toString().trim();
