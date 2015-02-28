@@ -14,7 +14,7 @@ and open the template in the editor.
     float: left;
     background-color: darkorange;
     margin-left: 20px;
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    border-radius: 20px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
 }
