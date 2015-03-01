@@ -38,7 +38,7 @@ import javax.servlet.http.Part;
 */
 @WebServlet("/UploadServlet")
 //@MultipartConfig(maxFileSize = 16177215)// upload file's size up to 16MB
-@MultipartConfig(location="/",fileSizeThreshold=1024*1024*2,	// 2MB 
+@MultipartConfig(location="",fileSizeThreshold=1024*1024*2,	// 2MB 
 				 maxFileSize=1024*1024*10,		// 10MB
 				 maxRequestSize=1024*1024*50)	// 50MB
 public class UploadServlet extends HttpServlet {
@@ -59,7 +59,7 @@ public class UploadServlet extends HttpServlet {
                 String description = request.getParameter("category"); // Retrieves <input type="text" name="description">
                 Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
                 String fileName = extractFileName(filePart);
-                System.err.println("Nombre Upload "+fileName);
+                
                 InputStream fileContent = filePart.getInputStream();
             
                 String category = request.getParameter("category");
@@ -92,6 +92,7 @@ public class UploadServlet extends HttpServlet {
 			fileSaveDir.mkdir();
 		}
                 
+                try{
                     InputStream is = filePart.getInputStream(); 
                     int i = is.available(); 
                     byte[] b  = new byte[i]; 
@@ -116,7 +117,12 @@ public class UploadServlet extends HttpServlet {
                 
                 ImageDAO.uploadDataImg(img);
   
+                }catch(Exception e){
+                request.setAttribute("message", "Error "+e+"!</br>");
+            getServletContext().getRequestDispatcher("/uploader.jsp").forward(
+            		request, response);
                 
+                }
             request.setAttribute("message", "Upload has been done successfully!</br>"
                     + "<a href='servlet1?filename="+fileName+"&&category="+category+"'>See your latest upload image</a></br>"
                     + "<a href='index.jsp'>Back To HOME</a>");
